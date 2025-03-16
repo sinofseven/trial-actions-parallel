@@ -8,14 +8,19 @@ jobs:
   AA:
     runs-on: ubuntu-latest
     steps:
-      - run: sleep 20
+      - run: sleep 10
 
   AB:
     runs-on: ubuntu-latest
     needs:
       - AA
+    strategy:
+      matrix:
+        tag:
+          - FIRST
+          - SECOND
     concurrency:
-      group: test
+      group: "${{ matrix.tag }}"
       cancel-in-progress: false
     steps:
       - run: sleep 60
@@ -30,8 +35,13 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - BA
+    strategy:
+      matrix:
+        tag:
+          - SECOND
+          - THIRD
     concurrency:
-      group: test
+      group: "${{ matrix.tag }}"
       cancel-in-progress: false
     steps:
       - run: sleep 60
