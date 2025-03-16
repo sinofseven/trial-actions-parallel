@@ -15,7 +15,7 @@ jobs:
     needs:
       - AA
     concurrency:
-      group: "${{ env.PARALLEL_KEY }}"
+      group: test
       cancel-in-progress: false
     steps:
       - run: echo AB
@@ -30,7 +30,7 @@ jobs:
     needs:
       - BA
     concurrency:
-      group: "${{ env.PARALLEL_KEY }}"
+      group: test
       cancel-in-progress: false
     steps:
       - run: echo BB
