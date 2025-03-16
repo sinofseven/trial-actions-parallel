@@ -18,6 +18,7 @@ jobs:
       group: test
       cancel-in-progress: false
     steps:
+      - run: sleep 60
       - run: echo AB
 
   BA:
@@ -33,6 +34,7 @@ jobs:
       group: test
       cancel-in-progress: false
     steps:
+      - run: sleep 60
       - run: echo BB
 
   CA:
