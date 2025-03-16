@@ -1,0 +1,45 @@
+on:
+  push:
+
+env:
+  PARALLEL_KEY: parallel
+
+jobs:
+  AA:
+    runs-on: ubuntu-latest
+    steps:
+      - run: sleep 20
+
+  AB:
+    runs-on: ubuntu-latest
+    needs:
+      - AA
+    concurrency:
+      group: ${{ env.PARALLEL_KEY }}
+      cancel-in-progress: false
+    steps:
+      - run: echo AB
+
+  BA:
+    runs-on: ubuntu-latest
+    steps:
+      - run: sleep 5
+
+  BB:
+    runs-on: ubuntu-latest
+    needs:
+      - BA
+    concurrency:
+      group: ${{ env.PARALLEL_KEY }}
+      cancel-in-progress: false
+    steps:
+      - run: echo BB
+
+  CA:
+    runs-on: ubuntu-latest
+    needs:
+      - AB
+      - BB
+    steps:
+      - run: echo CA
+
